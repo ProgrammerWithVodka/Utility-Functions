@@ -15,13 +15,12 @@ def combine_surfaces(surfaces):
         if new_height < surface.get_height():
             new_height = surface.get_height()
         # Adds the blit point for this surface.
-        blit_points.append(blit_points[idx - 1] + surface.get_width())
+        blit_points.append(sum(blit_points[:idx + 1]) + surface.get_width())
 
     # Creates new surface.
     new_surface = pygame.Surface((new_width, new_height), pygame.SRCALPHA, 32)
     # Blits onto new surface.
     for idx in range(len(surfaces)):
-        print(idx)
         new_surface.blit(surfaces[idx], (blit_points[idx], 0))
 
     return new_surface
